@@ -54,9 +54,9 @@ class PackingListJdbcRepositoryTest {
     void insertAllInfoPackingList() {
         PackingList insertList = repository.insert(packingList);
 
-        List<PackingList> packingLists = repository.findAll();
+        List<PackingList> allLists = repository.findAll();
 
-        assertThat(packingLists.isEmpty(), is(false));
+        assertThat(allLists.isEmpty(), is(false));
         assertThat(insertList, samePropertyValuesAs(packingList));
     }
 
@@ -67,9 +67,9 @@ class PackingListJdbcRepositoryTest {
         PackingList nullInfoList = new PackingList("대만여행", null, LocalDate.now());
         PackingList insertList = repository.insert(nullInfoList);
 
-        List<PackingList> packingLists = repository.findAll();
+        List<PackingList> allLists = repository.findAll();
 
-        assertThat(packingLists.isEmpty(), is(false));
+        assertThat(allLists.isEmpty(), is(false));
         assertThat(insertList, samePropertyValuesAs(nullInfoList));
     }
 
@@ -80,9 +80,9 @@ class PackingListJdbcRepositoryTest {
     void findAllPackingList() {
         repository.insert(packingList);
 
-        List<PackingList> allPackingList = repository.findAll();
+        List<PackingList> allLists = repository.findAll();
 
-        assertThat(allPackingList.size(), is(1));
+        assertThat(allLists.size(), is(1));
     }
 
     @Test
@@ -90,12 +90,12 @@ class PackingListJdbcRepositoryTest {
     @DisplayName("id 패킹리스트를 조회할 수 있다.")
     void findPackingListById() {
         repository.insert(packingList);
-        List<PackingList> beforeList = repository.findAll();
+        List<PackingList> allLists = repository.findAll();
 
-        Optional<PackingList> list = repository.findById(beforeList.get(0).getId());
+        Optional<PackingList> findList = repository.findById(allLists.get(0).getId());
 
-        assertThat(list.isPresent(), is(true));
-        assertThat(list.get(), samePropertyValuesAs(beforeList.get(0)));
+        assertThat(findList.isPresent(), is(true));
+        assertThat(findList.get(), samePropertyValuesAs(allLists.get(0)));
     }
 
     @Test
@@ -103,12 +103,12 @@ class PackingListJdbcRepositoryTest {
     @DisplayName("id 패킹리스트를 삭제할 수 있다.")
     void deletePackingListById() {
         repository.insert(packingList);
-        List<PackingList> beforeList = repository.findAll();
+        List<PackingList> beforeLists = repository.findAll();
 
-        repository.deleteById(beforeList.get(0).getId());
-        List<PackingList> afterList = repository.findAll();
+        repository.deleteById(beforeLists.get(0).getId());
+        List<PackingList> afterLists = repository.findAll();
 
-        assertThat(afterList.isEmpty(), is(true));
+        assertThat(afterLists.isEmpty(), is(true));
     }
 
     @Test
@@ -119,8 +119,8 @@ class PackingListJdbcRepositoryTest {
         repository.insert(packingList);
 
         repository.deleteAll();
-        List<PackingList> allList = repository.findAll();
+        List<PackingList> allLists = repository.findAll();
 
-        assertThat(allList.isEmpty(), is(true));
+        assertThat(allLists.isEmpty(), is(true));
     }
 }
