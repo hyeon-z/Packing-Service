@@ -31,6 +31,13 @@ public class PackingList {
         this.updatedAt = LocalDateTime.now();
     }
 
+    public PackingList(long id, String title, String description, LocalDate departureDate) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.departureDate = departureDate;
+    }
+
     public long getId() {
         return id;
     }
