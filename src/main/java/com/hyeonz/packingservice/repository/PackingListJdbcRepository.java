@@ -8,10 +8,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Repository
 public class PackingListJdbcRepository implements PackingListRepository {
@@ -19,10 +16,14 @@ public class PackingListJdbcRepository implements PackingListRepository {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final NamedParameterJdbcTemplate jdbcTemplate;
     private final RowMapper<PackingList> packingListRowMapper = (rs, rowNum) -> new PackingList(
+            rs.getLong("id"),
             rs.getString("title"),
             rs.getString("description"),
-            rs.getDate("departure_date").toLocalDate()
+            rs.getDate("departure_date").toLocalDate(),
+            rs.getTimestamp("created_at").toLocalDateTime(),
+            rs.getTimestamp("updated_at").toLocalDateTime()
     );
+
 
     public PackingListJdbcRepository(NamedParameterJdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -41,12 +42,21 @@ public class PackingListJdbcRepository implements PackingListRepository {
 
     @Override
     public Optional<PackingList> findById(long id) {
-        return Optional.empty();
+        return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT * FROM packing_list WHERE id = :id",
+                Collections.singletonMap("id", id), packingListRowMapper));
     }
 
     @Override
-    public void delete() {
+    @Transactional
+    public void deleteById(Long id) {
+        jdbcTemplate.update("DELETE FROM packing_list WHERE id = :id",
+                Collections.singletonMap("id", id));
+    }
 
+    @Override
+    public void deleteAll() {
+        jdbcTemplate.update("DELETE FROM packing_list",
+                Collections.emptyMap());
     }
 
     @Override

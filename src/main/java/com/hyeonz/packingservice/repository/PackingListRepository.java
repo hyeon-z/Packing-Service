@@ -14,5 +14,7 @@ public interface PackingListRepository {
 
     Optional<PackingList> findById(long id);
 
-    void delete();
+    void deleteById(Long id);
+
+    void deleteAll();
 }
