@@ -123,4 +123,18 @@ class PackingListJdbcRepositoryTest {
 
         assertThat(allLists.isEmpty(), is(true));
     }
+
+    @Test
+    @Order(6)
+    @DisplayName("패킹리스트를 수정할 수 있다.")
+    void updatePackingList() {
+        repository.insert(packingList);
+
+        PackingList list = repository.findAll().get(0);
+        list.setTitle("아이슬란드 여행");
+
+        PackingList updatedList = repository.update(list);
+
+        assertThat(updatedList, samePropertyValuesAs(list));
+    }
 }
