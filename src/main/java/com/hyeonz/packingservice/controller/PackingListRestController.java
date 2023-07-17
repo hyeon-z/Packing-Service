@@ -2,6 +2,8 @@ package com.hyeonz.packingservice.controller;
 
 import com.hyeonz.packingservice.model.PackingList;
 import com.hyeonz.packingservice.service.PackingListService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,27 +19,48 @@ public class PackingListRestController {
     }
 
     @PostMapping
+    @ResponseStatus(value = HttpStatus.CREATED)
     public PackingList createPackingList(@RequestBody PackingListCreateDto packingListCreateDto) {
-        return null;
+        return packingListService.createPackingList(
+                new PackingList(
+                        packingListCreateDto.getTitle(),
+                        packingListCreateDto.getDescription(),
+                        packingListCreateDto.getDepartureDate()
+                )
+        );
     }
 
     @GetMapping
+    @ResponseStatus(value = HttpStatus.OK)
     public List<PackingList> getAllPackingLists() {
-        return null;
+        return packingListService.getAllPackingLists();
     }
 
     @GetMapping("/{id}")
-    private Optional<PackingList> getPackingList(@PathVariable long id) {
-        return Optional.empty();
+    private ResponseEntity<PackingList> getPackingList(@PathVariable long id) {
+        Optional<PackingList> packingList = packingListService.getPackingList(id);
+
+        if (packingList.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        return ResponseEntity.ok(packingList.get());
     }
 
     @PatchMapping
+    @ResponseStatus(value = HttpStatus.OK)
     private PackingList updatePackingList(@RequestBody PackingListUpdateDto packingListUpdateDto) {
-        return null;
+        return packingListService.updatePackingList(new PackingList(
+                packingListUpdateDto.getId(),
+                packingListUpdateDto.getTitle(),
+                packingListUpdateDto.getDescription(),
+                packingListUpdateDto.getDepartureDate()
+        ));
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(value = HttpStatus.OK)
     private void deletePackingList(@PathVariable Long id) {
-
+        packingListService.deletePackingList(id);
     }
 }
