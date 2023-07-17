@@ -21,4 +21,16 @@ public class PackingList {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public LocalDate getDepartureDate() {
+        return departureDate;
+    }
 }
