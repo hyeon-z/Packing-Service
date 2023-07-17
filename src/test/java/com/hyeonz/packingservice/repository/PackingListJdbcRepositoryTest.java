@@ -9,6 +9,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -39,6 +40,11 @@ class PackingListJdbcRepositoryTest {
 
     @Autowired
     PackingListRepository repository;
+
+    @BeforeEach
+    void dataInitialize() {
+        repository.deleteAll();
+    }
 
     private final PackingList packingList = new PackingList("대만여행", "친구들과 간다.", LocalDate.now());
 
