@@ -97,4 +97,30 @@ class PackingListJdbcRepositoryTest {
         assertThat(list.isPresent(), is(true));
         assertThat(list.get(), samePropertyValuesAs(beforeList.get(0)));
     }
+
+    @Test
+    @Order(5)
+    @DisplayName("id 패킹리스트를 삭제할 수 있다.")
+    void deletePackingListById() {
+        repository.insert(packingList);
+        List<PackingList> beforeList = repository.findAll();
+
+        repository.deleteById(beforeList.get(0).getId());
+        List<PackingList> afterList = repository.findAll();
+
+        assertThat(afterList.isEmpty(), is(true));
+    }
+
+    @Test
+    @Order(6)
+    @DisplayName("모든 패킹리스트를 삭제할 수 있다.")
+    void deleteAllPackingList() {
+        repository.insert(packingList);
+        repository.insert(packingList);
+
+        repository.deleteAll();
+        List<PackingList> allList = repository.findAll();
+
+        assertThat(allList.isEmpty(), is(true));
+    }
 }
