@@ -6,7 +6,7 @@ import java.util.List;
 
 public class PackingList {
     private long id;
-    private final String title;
+    private String title;
     private String description;
     private final LocalDate departureDate;
     private List<Pack> packs;
@@ -45,5 +45,9 @@ public class PackingList {
 
     public LocalDate getDepartureDate() {
         return departureDate;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }
