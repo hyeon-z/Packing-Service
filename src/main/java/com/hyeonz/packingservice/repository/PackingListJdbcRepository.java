@@ -37,7 +37,16 @@ public class PackingListJdbcRepository implements PackingListRepository {
 
     @Override
     public PackingList update(PackingList packingList) {
-        return null;
+        var update = jdbcTemplate.update(
+                "UPDATE packing_list SET title = :title, description = :description, departure_date = :departureDate, updated_at = CURRENT_TIMESTAMP" +
+                        " WHERE id = :id",
+                toParamMapWithId(packingList)
+        );
+        if (update != 1) {
+            logger.error("PackingList의 update가 제대로 되지 않았습니다.");
+            throw new RuntimeException("PackingList의 update가 제대로 되지 않았습니다.");
+        }
+        return packingList;
     }
 
     @Override
@@ -75,6 +84,17 @@ public class PackingListJdbcRepository implements PackingListRepository {
     private Map<String, Object> toParamMap(PackingList packingList) {
         HashMap<String, Object> paramMap = new HashMap<>();
 
+        paramMap.put("title", packingList.getTitle());
+        paramMap.put("description", packingList.getDescription());
+        paramMap.put("departureDate", packingList.getDepartureDate());
+
+        return paramMap;
+    }
+
+    private Map<String, Object> toParamMapWithId(PackingList packingList) {
+        HashMap<String, Object> paramMap = new HashMap<>();
+
+        paramMap.put("id", packingList.getId());
         paramMap.put("title", packingList.getTitle());
         paramMap.put("description", packingList.getDescription());
         paramMap.put("departureDate", packingList.getDepartureDate());
