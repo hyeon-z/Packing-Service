@@ -72,4 +72,29 @@ class PackingListJdbcRepositoryTest {
         assertThat(packingLists.isEmpty(), is(false));
         assertThat(insertList, samePropertyValuesAs(nullInfoList));
     }
+
+
+    @Test
+    @Order(3)
+    @DisplayName("모든 패킹리스트를 조회할 수 있다.")
+    void findAllPackingList() {
+        repository.insert(packingList);
+
+        List<PackingList> allPackingList = repository.findAll();
+
+        assertThat(allPackingList.size(), is(1));
+    }
+
+    @Test
+    @Order(4)
+    @DisplayName("id 패킹리스트를 조회할 수 있다.")
+    void findPackingListById() {
+        repository.insert(packingList);
+        List<PackingList> beforeList = repository.findAll();
+
+        Optional<PackingList> list = repository.findById(beforeList.get(0).getId());
+
+        assertThat(list.isPresent(), is(true));
+        assertThat(list.get(), samePropertyValuesAs(beforeList.get(0)));
+    }
 }
