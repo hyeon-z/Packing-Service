@@ -14,12 +14,25 @@ public class PackingList {
     private final LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    public PackingList(long id, String title, String description, LocalDate departureDate, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.departureDate = departureDate;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
     public PackingList(String title, String description, LocalDate departureDate) {
         this.title = title;
         this.description = description;
         this.departureDate = departureDate;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
+    }
+
+    public long getId() {
+        return id;
     }
 
     public String getTitle() {
