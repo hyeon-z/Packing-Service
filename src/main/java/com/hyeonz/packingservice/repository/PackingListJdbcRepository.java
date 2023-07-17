@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +27,7 @@ public class PackingListJdbcRepository implements PackingListRepository {
     public PackingListJdbcRepository(NamedParameterJdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
+
 
     @Override
     public List<PackingList> findAll() {
@@ -48,6 +50,7 @@ public class PackingListJdbcRepository implements PackingListRepository {
     }
 
     @Override
+    @Transactional
     public PackingList insert(PackingList packingList) {
         int update = jdbcTemplate.update("INSERT INTO packing_list (title, description, departure_date)"
                 + " VALUES (:title, :description, :departureDate)", toParamMap(packingList));
