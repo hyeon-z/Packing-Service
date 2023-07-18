@@ -37,21 +37,21 @@ class PackJdbcRepositoryTest {
     @Autowired
     PackRepository packRepository;
 
+    private final PackingList packingList = new PackingList("대만여행", "친구들과 간다.", LocalDate.now());
+    private final Pack pack = new Pack(1L, "상의", Category.CLOTHES);
+
     @BeforeEach
     void dataInitialize() {
         packRepository.deleteAll();
-    }
 
-    private final PackingList packingList = new PackingList("대만여행", "친구들과 간다.", LocalDate.now());
-    private final Pack pack = new Pack(1L, "상의", Category.CLOTHES);
+        packingListRepository.insert(packingList);
+        packRepository.insert(pack);
+    }
 
     @Test
     @Order(1)
     @DisplayName("짐을 추가할 수 있다.")
     void insertPack() {
-        packingListRepository.insert(packingList);
-        packRepository.insert(pack);
-
         List<Pack> allPack = packRepository.findAll();
         assertThat(allPack.isEmpty(), is(false));
     }
@@ -61,9 +61,6 @@ class PackJdbcRepositoryTest {
     @DisplayName("모든 짐을 조회할 수 있다.")
     void findAllPack() {
         Pack newPack = new Pack(1L, "하의", Category.CLOTHES);
-
-        packingListRepository.insert(packingList);
-        packRepository.insert(pack);
         packRepository.insert(newPack);
 
         List<Pack> allPack = packRepository.findAll();
@@ -74,9 +71,6 @@ class PackJdbcRepositoryTest {
     @Order(3)
     @DisplayName("모든 짐을 삭제할 수 있다.")
     void deleteAllPack() {
-        packingListRepository.insert(packingList);
-        packRepository.insert(pack);
-
         packRepository.deleteAll();
 
         List<Pack> allPack = packRepository.findAll();
