@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -33,6 +34,7 @@ public class PackJdbcRepository implements PackRepository {
     }
 
     @Override
+    @Transactional
     public Pack update(Pack pack) {
         int update = jdbcTemplate.update("UPDATE pack SET name = :name, category = :category, checked = :checked, updated_at = CURRENT_TIMESTAMP WHERE id = :id",
                 toUpdateParamMap(pack)
@@ -54,11 +56,13 @@ public class PackJdbcRepository implements PackRepository {
     }
 
     @Override
+    @Transactional
     public void deleteById(long id) {
         jdbcTemplate.update("DELETE FROM pack WHERE id = :id", Collections.singletonMap("id", id));
     }
 
     @Override
+    @Transactional
     public void deleteAll() {
         jdbcTemplate.update("DELETE FROM pack", Collections.emptyMap());
     }
@@ -69,6 +73,7 @@ public class PackJdbcRepository implements PackRepository {
     }
 
     @Override
+    @Transactional
     public Pack insert(Pack pack) {
         int update = jdbcTemplate.update("INSERT INTO pack(packing_list_id, name, category) "
                 + "VALUES (:packingListId, :name, :category)", toParamMap(pack)

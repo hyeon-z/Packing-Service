@@ -36,6 +36,7 @@ public class PackingListJdbcRepository implements PackingListRepository {
     }
 
     @Override
+    @Transactional
     public PackingList update(PackingList packingList) {
         var update = jdbcTemplate.update(
                 "UPDATE packing_list SET title = :title, description = :description, departure_date = :departureDate, updated_at = CURRENT_TIMESTAMP" +
@@ -63,6 +64,7 @@ public class PackingListJdbcRepository implements PackingListRepository {
     }
 
     @Override
+    @Transactional
     public void deleteAll() {
         jdbcTemplate.update("DELETE FROM packing_list",
                 Collections.emptyMap());
