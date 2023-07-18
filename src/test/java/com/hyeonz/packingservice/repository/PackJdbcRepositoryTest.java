@@ -104,4 +104,18 @@ class PackJdbcRepositoryTest {
 
         assertThat(updatedPack, samePropertyValuesAs(pack));
     }
+
+    @Test
+    @Order(6)
+    @DisplayName("id로 짐을 삭제할 수 있다.")
+    void deletePackById() {
+        List<Pack> beforeLists = packRepository.findAll();
+
+        packRepository.deleteById(beforeLists.get(0).getId());
+
+        List<Pack> afterLists = packRepository.findAll();
+
+        assertThat(beforeLists.isEmpty(), is(false));
+        assertThat(afterLists.isEmpty(), is(true));
+    }
 }
