@@ -8,15 +8,13 @@ public class Pack {
     private final String name;
     private final Category category;
     private boolean checked;
-    private final LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime updatedAt = LocalDateTime.now();
 
     public Pack(Long id, Long packingListId, String name, Category category) {
         this.packingListId = packingListId;
         this.name = name;
         this.category = category;
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
     }
 
     public Pack(Long id, Long packingListId, String name, Category category, boolean checked, LocalDateTime createdAt, LocalDateTime updatedAt) {

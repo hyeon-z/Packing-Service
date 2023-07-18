@@ -11,8 +11,8 @@ public class PackingList {
     private final LocalDate departureDate;
     private List<Pack> packs;
 
-    private final LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime updatedAt = LocalDateTime.now();
 
     public PackingList(long id, String title, String description, LocalDate departureDate, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
@@ -27,8 +27,6 @@ public class PackingList {
         this.title = title;
         this.description = description;
         this.departureDate = departureDate;
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
     }
 
     public PackingList(long id, String title, String description, LocalDate departureDate) {
@@ -36,8 +34,6 @@ public class PackingList {
         this.title = title;
         this.description = description;
         this.departureDate = departureDate;
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
     }
 
     public Long getId() {
