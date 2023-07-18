@@ -39,6 +39,7 @@ class PackJdbcRepositoryTest {
 
     private final PackingList packingList = new PackingList("대만여행", "친구들과 간다.", LocalDate.now());
     private final Pack pack = new Pack(1L, "상의", Category.CLOTHES);
+    private final Pack newPack = new Pack(1L, "하의", Category.CLOTHES);
 
     @BeforeEach
     void dataInitialize() {
@@ -60,7 +61,6 @@ class PackJdbcRepositoryTest {
     @Order(2)
     @DisplayName("모든 짐을 조회할 수 있다.")
     void findAllPack() {
-        Pack newPack = new Pack(1L, "하의", Category.CLOTHES);
         packRepository.insert(newPack);
 
         List<Pack> allPack = packRepository.findAll();
