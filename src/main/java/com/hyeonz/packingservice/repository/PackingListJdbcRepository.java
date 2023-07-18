@@ -3,8 +3,12 @@ package com.hyeonz.packingservice.repository;
 import com.hyeonz.packingservice.model.PackingList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -73,24 +77,19 @@ public class PackingListJdbcRepository implements PackingListRepository {
     @Override
     @Transactional
     public PackingList insert(PackingList packingList) {
-        int update = jdbcTemplate.update("INSERT INTO packing_list (title, description, departure_date)"
-                + " VALUES (:title, :description, :departureDate)", toParamMap(packingList));
+        SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate.getJdbcTemplate()).withTableName("packing_list").usingGeneratedKeyColumns("id");
 
-        if (update != 1) {
-            logger.error("PackingList의 insert가 제대로 되지 않았습니다.");
-            throw new RuntimeException("PackingList의 insert가 제대로 되지 않았습니다.");
+        try {
+            SqlParameterSource params = new BeanPropertySqlParameterSource(packingList);
+
+            long id = jdbcInsert.executeAndReturnKey(params).longValue();
+
+            return new PackingList(id, packingList.getTitle(), packingList.getDescription(), packingList.getDepartureDate(), packingList.getCreatedAt(), packingList.getUpdatedAt());
+
+        } catch (DuplicateKeyException e) {
+            logger.error("데이터베이스에 이미 중복된 키 값이 존재합니다.");
+            throw new RuntimeException("데이터베이스에 이미 중복된 키 값이 존재합니다.", e);
         }
-        return packingList;
-    }
-
-    private Map<String, Object> toParamMap(PackingList packingList) {
-        HashMap<String, Object> paramMap = new HashMap<>();
-
-        paramMap.put("title", packingList.getTitle());
-        paramMap.put("description", packingList.getDescription());
-        paramMap.put("departureDate", packingList.getDepartureDate());
-
-        return paramMap;
     }
 
     private Map<String, Object> toParamMapWithId(PackingList packingList) {
