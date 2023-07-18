@@ -14,7 +14,7 @@ CREATE TABLE pack
     packing_list_id BIGINT,
     name            VARCHAR(12)        NOT NULL,
     category        VARCHAR(12)        NOT NULL,
-    checked         BOOLEAN                     DEFAULT FALSE,
+    checked         BOOLEAN            NOT NULL DEFAULT FALSE,
     created_at      DATETIME(9)        NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at      DATETIME(9)        NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (packing_list_id) REFERENCES packing_list (id)
