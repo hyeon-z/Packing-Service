@@ -133,7 +133,9 @@ class PackingListJdbcRepositoryTest {
         PackingList list = repository.findAll().get(0);
         list.setTitle("아이슬란드 여행");
 
-        PackingList updatedList = repository.update(list);
+        repository.update(list);
+
+        PackingList updatedList = repository.findAll().get(0);
 
         assertThat(updatedList, samePropertyValuesAs(list));
     }
