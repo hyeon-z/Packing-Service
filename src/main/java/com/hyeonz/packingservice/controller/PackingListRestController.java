@@ -37,7 +37,7 @@ public class PackingListRestController {
     }
 
     @GetMapping("/{id}")
-    private ResponseEntity<PackingList> getPackingList(@PathVariable long id) {
+    public ResponseEntity<PackingList> getPackingList(@PathVariable long id) {
         Optional<PackingList> packingList = packingListService.getPackingList(id);
 
         if (packingList.isEmpty()) {
@@ -49,7 +49,7 @@ public class PackingListRestController {
 
     @PatchMapping
     @ResponseStatus(value = HttpStatus.OK)
-    private PackingList updatePackingList(@RequestBody PackingListUpdateDto packingListUpdateDto) {
+    public PackingList updatePackingList(@RequestBody PackingListUpdateDto packingListUpdateDto) {
         return packingListService.updatePackingList(new PackingList(
                 packingListUpdateDto.getId(),
                 packingListUpdateDto.getTitle(),
@@ -60,7 +60,7 @@ public class PackingListRestController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.OK)
-    private void deletePackingList(@PathVariable Long id) {
+    public void deletePackingList(@PathVariable Long id) {
         packingListService.deletePackingList(id);
     }
 }
