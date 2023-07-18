@@ -42,17 +42,15 @@ public class PackingListJdbcRepository implements PackingListRepository {
     @Override
     @Transactional
     public PackingList update(PackingList packingList) {
-        var update = jdbcTemplate.update(
-                "UPDATE packing_list SET title = :title, description = :description, departure_date = :departureDate, updated_at = CURRENT_TIMESTAMP" +
-                        " WHERE id = :id",
-                toParamMapWithId(packingList)
-        );
+        var update = jdbcTemplate.update("UPDATE packing_list SET title = :title, description = :description, departure_date = :departureDate, updated_at = CURRENT_TIMESTAMP" + " WHERE id = :id", toParamMapWithId(packingList));
         if (update != 1) {
             logger.error("PackingList의 update가 제대로 되지 않았습니다.");
             throw new RuntimeException("PackingList의 update가 제대로 되지 않았습니다.");
         }
-        return packingList;
+
+        return findById(packingList.getId()).orElseThrow(() -> new RuntimeException("PackingList를 찾을 수 없습니다."));
     }
+
 
     @Override
     public Optional<PackingList> findById(long id) {
