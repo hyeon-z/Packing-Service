@@ -13,8 +13,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.samePropertyValuesAs;
+import static org.hamcrest.Matchers.*;
 import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.H2;
 
 @SpringBootTest
@@ -39,29 +38,32 @@ class PackJdbcRepositoryTest {
     PackRepository packRepository;
 
     private final PackingList packingList = new PackingList("대만여행", "친구들과 간다.", LocalDate.now());
-    private final Pack pack = new Pack(1L, "상의", Category.CLOTHES);
-    private final Pack newPack = new Pack(1L, "하의", Category.CLOTHES);
+    private final Pack pack = new Pack(1L, 1L, "상의", Category.CLOTHES);
+    private final Pack newPack = new Pack(2L, 1L, "하의", Category.CLOTHES);
 
     @BeforeEach
     void dataInitialize() {
         packRepository.deleteAll();
 
         packingListRepository.insert(packingList);
-        packRepository.insert(pack);
     }
 
     @Test
     @Order(1)
     @DisplayName("짐을 추가할 수 있다.")
     void insertPack() {
+        Pack insertPack = packRepository.insert(pack);
+
         List<Pack> allPack = packRepository.findAll();
         assertThat(allPack.isEmpty(), is(false));
+        assertThat(insertPack, samePropertyValuesAs(pack));
     }
 
     @Test
     @Order(2)
     @DisplayName("모든 짐을 조회할 수 있다.")
     void findAllPack() {
+        packRepository.insert(pack);
         packRepository.insert(newPack);
 
         List<Pack> allPack = packRepository.findAll();
@@ -72,6 +74,7 @@ class PackJdbcRepositoryTest {
     @Order(3)
     @DisplayName("모든 짐을 삭제할 수 있다.")
     void deleteAllPack() {
+        packRepository.insert(pack);
         packRepository.deleteAll();
 
         List<Pack> allPack = packRepository.findAll();
@@ -82,6 +85,7 @@ class PackJdbcRepositoryTest {
     @Order(4)
     @DisplayName("카테고리로 짐을 조회할 수 있다.")
     void findPackByCategory() {
+        packRepository.insert(pack);
         packRepository.insert(newPack);
 
         List<Pack> foodPacks = packRepository.findByCategory(Category.FOOD);
@@ -95,23 +99,25 @@ class PackJdbcRepositoryTest {
     @Order(5)
     @DisplayName("짐을 수정할 수 있다.")
     void updatePack() {
-        Pack pack = packRepository.findAll().get(0);
-        pack.setChecked(true);
+        Pack insertPack = packRepository.insert(pack);
+        insertPack.setChecked(true);
 
-        packRepository.update(pack);
+        Pack updatePack = packRepository.update(insertPack);
 
-        Pack updatedPack = packRepository.findAll().get(0);
-
-        assertThat(updatedPack, samePropertyValuesAs(pack));
+        assertThat(updatePack.getId(), is(insertPack.getId()));
+        assertThat(updatePack.isChecked(), is(insertPack.isChecked()));
+        assertThat(updatePack.getUpdatedAt(), not(equalTo(insertPack.getUpdatedAt())));
     }
 
     @Test
     @Order(6)
     @DisplayName("id로 짐을 삭제할 수 있다.")
     void deletePackById() {
+        Pack insertPack = packRepository.insert(pack);
+
         List<Pack> beforeLists = packRepository.findAll();
 
-        packRepository.deleteById(beforeLists.get(0).getId());
+        packRepository.deleteById(insertPack.getId());
 
         List<Pack> afterLists = packRepository.findAll();
 
