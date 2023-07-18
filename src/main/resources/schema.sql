@@ -4,8 +4,8 @@ CREATE TABLE packing_list
     title          VARCHAR(12)        NOT NULL,
     description    VARCHAR(30)                 DEFAULT NULL,
     departure_date DATE               NOT NULL,
-    created_at     DATETIME           NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at     DATETIME           NOT NULL DEFAULT CURRENT_TIMESTAMP
+    created_at     DATETIME(9)        NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at     DATETIME(9)        NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE pack
@@ -15,7 +15,7 @@ CREATE TABLE pack
     name            VARCHAR(12)        NOT NULL,
     category        VARCHAR(12)        NOT NULL,
     checked         BOOLEAN                     DEFAULT FALSE,
-    created_at      DATETIME           NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at      DATETIME           NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_at      DATETIME(9)        NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at      DATETIME(9)        NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (packing_list_id) REFERENCES packing_list (id)
 );
