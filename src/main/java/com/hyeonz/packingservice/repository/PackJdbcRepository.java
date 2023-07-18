@@ -39,12 +39,14 @@ public class PackJdbcRepository implements PackRepository {
 
     @Override
     public List<Pack> findByCategory(Category category) {
-        return null;
+        return jdbcTemplate.query("SELECT * FROM pack WHERE category = :category",
+                Collections.singletonMap("category", category.toString()),
+                packRowMapper);
     }
 
     @Override
     public void deleteById(long id) {
-
+        jdbcTemplate.update("DELETE FROM pack WHERE id = :id", Collections.singletonMap("id", id));
     }
 
     @Override
