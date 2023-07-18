@@ -17,21 +17,21 @@ public class PackServiceImpl implements PackService {
 
     @Override
     public Pack insert(Pack pack) {
-        return null;
+        return packRepository.insert(pack);
     }
 
     @Override
     public Pack update(Pack pack) {
-        return null;
+        return packRepository.update(pack);
     }
 
     @Override
     public List<Pack> findByCategory(Category category) {
-        return null;
+        return packRepository.findByCategory(category);
     }
 
     @Override
     public void deleteById(long id) {
-
+        packRepository.deleteById(id);
     }
 }
