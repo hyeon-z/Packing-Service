@@ -11,7 +11,14 @@ public class Pack {
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt = LocalDateTime.now();
 
+    public Pack(Long packingListId, String name, Category category) {
+        this.packingListId = packingListId;
+        this.name = name;
+        this.category = category;
+    }
+
     public Pack(Long id, Long packingListId, String name, Category category) {
+        this.id = id;
         this.packingListId = packingListId;
         this.name = name;
         this.category = category;
@@ -45,6 +52,14 @@ public class Pack {
 
     public boolean isChecked() {
         return checked;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
     public void setChecked(boolean checked) {
