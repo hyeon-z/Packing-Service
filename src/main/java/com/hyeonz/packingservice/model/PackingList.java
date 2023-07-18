@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class PackingList {
-    private long id;
+    private Long id;
     private String title;
     private String description;
     private final LocalDate departureDate;
@@ -40,7 +40,7 @@ public class PackingList {
         this.updatedAt = LocalDateTime.now();
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

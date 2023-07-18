@@ -3,13 +3,15 @@ package com.hyeonz.packingservice.controller;
 import java.time.LocalDate;
 
 public class PackingListUpdateDto {
-    private long id;
+    private Long id;
     private String title;
     private String description;
     private LocalDate departureDate;
 
 
-    public long getId() {return id;}
+    public Long getId() {
+        return id;
+    }
 
     public String getTitle() {
         return title;

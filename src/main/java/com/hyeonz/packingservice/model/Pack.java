@@ -3,15 +3,15 @@ package com.hyeonz.packingservice.model;
 import java.time.LocalDateTime;
 
 public class Pack {
-    private long id;
-    private final long packingListId;
+    private final Long packingListId;
+    private Long id;
     private final String name;
     private final Category category;
     private boolean checked;
     private final LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public Pack(long packingListId, String name, Category category) {
+    public Pack(Long id, Long packingListId, String name, Category category) {
         this.packingListId = packingListId;
         this.name = name;
         this.category = category;
@@ -19,7 +19,7 @@ public class Pack {
         this.updatedAt = LocalDateTime.now();
     }
 
-    public Pack(long id, long packingListId, String name, Category category, boolean checked, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Pack(Long id, Long packingListId, String name, Category category, boolean checked, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.packingListId = packingListId;
         this.name = name;
@@ -29,11 +29,11 @@ public class Pack {
         this.updatedAt = updatedAt;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public long getPackingListId() {
+    public Long getPackingListId() {
         return packingListId;
     }
 
