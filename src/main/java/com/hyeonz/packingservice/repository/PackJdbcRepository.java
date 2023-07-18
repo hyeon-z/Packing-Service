@@ -34,7 +34,16 @@ public class PackJdbcRepository implements PackRepository {
 
     @Override
     public Pack update(Pack pack) {
-        return null;
+        int update = jdbcTemplate.update("UPDATE pack SET name = :name, category = :category, checked = :checked, updated_at = CURRENT_TIMESTAMP WHERE id = :id",
+                toUpdateParamMap(pack)
+        );
+
+        if (update != 1) {
+            logger.error("Pack의 update가 제대로 되지 않았습니다.");
+            throw new RuntimeException("Pack의 update가 제대로 되지 않았습니다.");
+        }
+
+        return pack;
     }
 
     @Override
@@ -78,6 +87,17 @@ public class PackJdbcRepository implements PackRepository {
         paramMap.put("packingListId", pack.getPackingListId());
         paramMap.put("name", pack.getName());
         paramMap.put("category", pack.getCategory().toString());
+
+        return paramMap;
+    }
+
+    private Map<String, Object> toUpdateParamMap(Pack pack) {
+        HashMap<String, Object> paramMap = new HashMap<>();
+
+        paramMap.put("name", pack.getName());
+        paramMap.put("category", pack.getCategory().toString());
+        paramMap.put("checked", pack.isChecked());
+        paramMap.put("id", pack.getId());
 
         return paramMap;
     }
