@@ -20,24 +20,24 @@ public class PackRestController {
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
     public Pack createPack(Pack pack) {
-
+        return packService.insert(pack);
     }
 
     @PatchMapping
     @ResponseStatus(HttpStatus.OK)
     public Pack update(Pack pack) {
-
+        return packService.update(pack);
     }
 
     @GetMapping({"/category"})
     @ResponseStatus(HttpStatus.OK)
     public List<Pack> findByCategory(Category category) {
-
+        return packService.findByCategory(category);
     }
 
     @DeleteMapping
     @ResponseStatus(HttpStatus.OK)
     public void deleteById(long id) {
-
+        packService.deleteById(id);
     }
 }
