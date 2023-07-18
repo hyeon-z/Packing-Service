@@ -69,4 +69,17 @@ class PackJdbcRepositoryTest {
         List<Pack> allPack = packRepository.findAll();
         assertThat(allPack.size(), is(2));
     }
+
+    @Test
+    @Order(3)
+    @DisplayName("모든 짐을 삭제할 수 있다.")
+    void deleteAllPack() {
+        packingListRepository.insert(packingList);
+        packRepository.insert(pack);
+
+        packRepository.deleteAll();
+
+        List<Pack> allPack = packRepository.findAll();
+        assertThat(allPack.isEmpty(), is(true));
+    }
 }
