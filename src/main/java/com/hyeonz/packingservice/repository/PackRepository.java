@@ -4,6 +4,7 @@ import com.hyeonz.packingservice.model.Category;
 import com.hyeonz.packingservice.model.Pack;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PackRepository {
     List<Pack> findAll();
@@ -11,6 +12,8 @@ public interface PackRepository {
     Pack insert(Pack pack);
 
     Pack update(Pack pack);
+
+    Optional<Pack> findById(long id);
 
     List<Pack> findByCategory(Category category);
 
