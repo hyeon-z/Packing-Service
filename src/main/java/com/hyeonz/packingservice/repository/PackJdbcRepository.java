@@ -75,25 +75,29 @@ public class PackJdbcRepository implements PackRepository {
     @Override
     @Transactional
     public Pack insert(Pack pack) {
-        int update = jdbcTemplate.update("INSERT INTO pack(packing_list_id, name, category) "
-                + "VALUES (:packingListId, :name, :category)", toParamMap(pack)
-        );
+        SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate.getJdbcTemplate())
+                .withTableName("pack")
+                .usingGeneratedKeyColumns("id");
 
-        if (update != 1) {
-            logger.error("Packi의 insert가 제대로 되지 않았습니다.");
-            throw new RuntimeException("Pack의 insert가 제대로 되지 않았습니다.");
+        try {
+            SqlParameterSource params = new BeanPropertySqlParameterSource(pack);
+
+            long id = jdbcInsert.executeAndReturnKey(params).longValue();
+
+            return new Pack(
+                    id,
+                    pack.getPackingListId(),
+                    pack.getName(),
+                    pack.getCategory(),
+                    pack.isChecked(),
+                    pack.getCreatedAt(),
+                    pack.getUpdatedAt()
+            );
+
+        } catch (DuplicateKeyException e) {
+            logger.error("데이터베이스에 이미 중복된 키 값이 존재합니다.");
+            throw new RuntimeException("데이터베이스에 이미 중복된 키 값이 존재합니다.", e);
         }
-        return pack;
-    }
-
-    private Map<String, Object> toParamMap(Pack pack) {
-        HashMap<String, Object> paramMap = new HashMap<>();
-
-        paramMap.put("packingListId", pack.getPackingListId());
-        paramMap.put("name", pack.getName());
-        paramMap.put("category", pack.getCategory().toString());
-
-        return paramMap;
     }
 
     private Map<String, Object> toUpdateParamMap(Pack pack) {
