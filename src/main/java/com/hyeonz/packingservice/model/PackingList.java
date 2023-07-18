@@ -36,6 +36,8 @@ public class PackingList {
         this.title = title;
         this.description = description;
         this.departureDate = departureDate;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
     public long getId() {
@@ -54,7 +56,19 @@ public class PackingList {
         return departureDate;
     }
 
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public void addPack(Pack pack) {
+        this.packs.add(pack);
     }
 }
