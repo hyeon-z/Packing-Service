@@ -19,14 +19,23 @@ public class PackRestController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public Pack createPack(Pack pack) {
-        return packService.insert(pack);
+    public Pack createPack(PackCreateDto packCreateDto) {
+        return packService.insert(new Pack(
+                packCreateDto.getPackingListId(),
+                packCreateDto.getName(),
+                packCreateDto.getCategory()
+        ));
     }
 
     @PatchMapping
     @ResponseStatus(HttpStatus.OK)
-    public Pack update(Pack pack) {
-        return packService.update(pack);
+    public Pack update(PackUpdateDto packUpdateDto) {
+        return packService.update(new Pack(
+                packUpdateDto.getId(),
+                packUpdateDto.getPackingListId(),
+                packUpdateDto.getName(),
+                packUpdateDto.getCategory()
+        ));
     }
 
     @GetMapping({"/category"})
