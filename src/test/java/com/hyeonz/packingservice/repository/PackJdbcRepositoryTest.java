@@ -14,6 +14,7 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.samePropertyValuesAs;
 import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.H2;
 
 @SpringBootTest
@@ -88,5 +89,19 @@ class PackJdbcRepositoryTest {
 
         assertThat(foodPacks.isEmpty(), is(true));
         assertThat(clothesPacks.size(), is(2));
+    }
+
+    @Test
+    @Order(5)
+    @DisplayName("짐을 수정할 수 있다.")
+    void updatePack() {
+        Pack pack = packRepository.findAll().get(0);
+        pack.setChecked(true);
+
+        packRepository.update(pack);
+
+        Pack updatedPack = packRepository.findAll().get(0);
+
+        assertThat(updatedPack, samePropertyValuesAs(pack));
     }
 }
