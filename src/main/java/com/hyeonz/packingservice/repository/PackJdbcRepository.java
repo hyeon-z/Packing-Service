@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +45,11 @@ public class PackJdbcRepository implements PackRepository {
     @Override
     public void deleteById(long id) {
 
+    }
+
+    @Override
+    public void deleteAll() {
+        jdbcTemplate.update("DELETE FROM pack", Collections.emptyMap());
     }
 
     @Override

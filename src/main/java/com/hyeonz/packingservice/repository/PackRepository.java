@@ -15,4 +15,6 @@ public interface PackRepository {
     List<Pack> findByCategory(Category category);
 
     void deleteById(long id);
+
+    void deleteAll();
 }
