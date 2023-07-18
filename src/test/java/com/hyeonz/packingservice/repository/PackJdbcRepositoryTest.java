@@ -76,4 +76,17 @@ class PackJdbcRepositoryTest {
         List<Pack> allPack = packRepository.findAll();
         assertThat(allPack.isEmpty(), is(true));
     }
+
+    @Test
+    @Order(4)
+    @DisplayName("카테고리로 짐을 조회할 수 있다.")
+    void findPackByCategory() {
+        packRepository.insert(newPack);
+
+        List<Pack> foodPacks = packRepository.findByCategory(Category.FOOD);
+        List<Pack> clothesPacks = packRepository.findByCategory(Category.CLOTHES);
+
+        assertThat(foodPacks.isEmpty(), is(true));
+        assertThat(clothesPacks.size(), is(2));
+    }
 }
