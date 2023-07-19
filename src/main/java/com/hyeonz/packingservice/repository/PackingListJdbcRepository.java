@@ -42,7 +42,8 @@ public class PackingListJdbcRepository implements PackingListRepository {
     @Override
     @Transactional
     public PackingList update(PackingList packingList) {
-        var update = jdbcTemplate.update("UPDATE packing_list SET title = :title, description = :description, departure_date = :departureDate, updated_at = CURRENT_TIMESTAMP" + " WHERE id = :id", toParamMapWithId(packingList));
+        var update = jdbcTemplate.update("UPDATE packing_list SET title = :title, description = :description, departure_date = :departureDate, updated_at = CURRENT_TIMESTAMP"
+                + " WHERE id = :id", toParamMap(packingList));
         if (update != 1) {
             logger.error("PackingList의 update가 제대로 되지 않았습니다.");
             throw new RuntimeException("PackingList의 update가 제대로 되지 않았습니다.");
@@ -82,7 +83,13 @@ public class PackingListJdbcRepository implements PackingListRepository {
 
             long id = jdbcInsert.executeAndReturnKey(params).longValue();
 
-            return new PackingList(id, packingList.getTitle(), packingList.getDescription(), packingList.getDepartureDate(), packingList.getCreatedAt(), packingList.getUpdatedAt());
+            return new PackingList(id,
+                    packingList.getTitle(),
+                    packingList.getDescription(),
+                    packingList.getDepartureDate(),
+                    packingList.getCreatedAt(),
+                    packingList.getUpdatedAt()
+            );
 
         } catch (DuplicateKeyException e) {
             logger.error("데이터베이스에 이미 중복된 키 값이 존재합니다.");
@@ -90,7 +97,7 @@ public class PackingListJdbcRepository implements PackingListRepository {
         }
     }
 
-    private Map<String, Object> toParamMapWithId(PackingList packingList) {
+    private Map<String, Object> toParamMap(PackingList packingList) {
         HashMap<String, Object> paramMap = new HashMap<>();
 
         paramMap.put("id", packingList.getId());
