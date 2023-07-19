@@ -22,7 +22,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
     // database
-    testImplementation 'com.h2database:h2:2.1.214'
+    implementation 'com.h2database:h2:2.1.214'
 }
 
 tasks.named('test') {
