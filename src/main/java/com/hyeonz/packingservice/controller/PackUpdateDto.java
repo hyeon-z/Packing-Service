@@ -4,17 +4,13 @@ import com.hyeonz.packingservice.model.Category;
 
 public class PackUpdateDto {
     private Long id;
-    private Long packingListId;
     private String name;
     private Category category;
+    private boolean checked;
 
 
     public Long getId() {
         return id;
-    }
-
-    public Long getPackingListId() {
-        return packingListId;
     }
 
     public String getName() {
@@ -23,5 +19,9 @@ public class PackUpdateDto {
 
     public Category getCategory() {
         return category;
+    }
+
+    public boolean isChecked() {
+        return checked;
     }
 }

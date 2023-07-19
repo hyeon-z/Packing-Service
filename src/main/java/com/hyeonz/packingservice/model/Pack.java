@@ -3,7 +3,7 @@ package com.hyeonz.packingservice.model;
 import java.time.LocalDateTime;
 
 public class Pack {
-    private final Long packingListId;
+    private Long packingListId;
     private Long id;
     private final String name;
     private final Category category;
@@ -15,6 +15,13 @@ public class Pack {
         this.packingListId = packingListId;
         this.name = name;
         this.category = category;
+    }
+
+    public Pack(Long id, String name, Category category, boolean checked) {
+        this.id = id;
+        this.name = name;
+        this.category = category;
+        this.checked = checked;
     }
 
     public Pack(Long id, Long packingListId, String name, Category category) {
