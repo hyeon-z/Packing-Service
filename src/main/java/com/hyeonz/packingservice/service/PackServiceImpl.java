@@ -16,22 +16,22 @@ public class PackServiceImpl implements PackService {
     }
 
     @Override
-    public Pack insert(Pack pack) {
+    public Pack createPack(Pack pack) {
         return packRepository.insert(pack);
     }
 
     @Override
-    public Pack update(Pack pack) {
+    public Pack updatePack(Pack pack) {
         return packRepository.update(pack);
     }
 
     @Override
-    public List<Pack> findByCategory(Category category) {
+    public List<Pack> getPacksByCategory(Category category) {
         return packRepository.findByCategory(category);
     }
 
     @Override
-    public void deleteById(long id) {
+    public void deletePack(long id) {
         packRepository.deleteById(id);
     }
 }

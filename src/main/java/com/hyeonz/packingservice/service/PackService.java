@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface PackService {
 
-    Pack insert(Pack pack);
+    Pack createPack(Pack pack);
 
-    Pack update(Pack pack);
+    Pack updatePack(Pack pack);
 
-    List<Pack> findByCategory(Category category);
+    List<Pack> getPacksByCategory(Category category);
 
-    void deleteById(long id);
+    void deletePack(long id);
 }
