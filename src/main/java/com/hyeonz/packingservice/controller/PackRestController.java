@@ -1,6 +1,5 @@
 package com.hyeonz.packingservice.controller;
 
-import com.hyeonz.packingservice.model.Category;
 import com.hyeonz.packingservice.model.Pack;
 import com.hyeonz.packingservice.service.PackService;
 import org.springframework.http.HttpStatus;
@@ -18,7 +17,7 @@ public class PackRestController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     public Pack createPack(@RequestBody PackCreateDto packCreateDto) {
         return packService.createPack(new Pack(
                 packCreateDto.getPackingListId(),
