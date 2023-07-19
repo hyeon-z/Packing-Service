@@ -2,14 +2,12 @@ package com.hyeonz.packingservice.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class PackingList {
     private Long id;
     private String title;
     private String description;
     private final LocalDate departureDate;
-    private List<Pack> packs;
 
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt = LocalDateTime.now();
@@ -62,9 +60,5 @@ public class PackingList {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public void addPack(Pack pack) {
-        this.packs.add(pack);
     }
 }
