@@ -19,8 +19,8 @@ public class PackRestController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public Pack createPack(PackCreateDto packCreateDto) {
-        return packService.insert(new Pack(
+    public Pack createPack(@RequestBody PackCreateDto packCreateDto) {
+        return packService.createPack(new Pack(
                 packCreateDto.getPackingListId(),
                 packCreateDto.getName(),
                 packCreateDto.getCategory()
@@ -29,24 +29,24 @@ public class PackRestController {
 
     @PatchMapping
     @ResponseStatus(HttpStatus.OK)
-    public Pack update(PackUpdateDto packUpdateDto) {
-        return packService.update(new Pack(
+    public Pack update(@RequestBody PackUpdateDto packUpdateDto) {
+        return packService.updatePack(new Pack(
                 packUpdateDto.getId(),
-                packUpdateDto.getPackingListId(),
                 packUpdateDto.getName(),
-                packUpdateDto.getCategory()
+                packUpdateDto.getCategory(),
+                packUpdateDto.isChecked()
         ));
     }
 
-    @GetMapping({"/category"})
+    @GetMapping({"{category}"})
     @ResponseStatus(HttpStatus.OK)
-    public List<Pack> findByCategory(Category category) {
-        return packService.findByCategory(category);
+    public List<Pack> findByCategory(@PathVariable Category category) {
+        return packService.getPacksByCategory(category);
     }
 
-    @DeleteMapping
+    @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteById(long id) {
-        packService.deleteById(id);
+    public void deleteById(@PathVariable long id) {
+        packService.deletePack(id);
     }
 }
