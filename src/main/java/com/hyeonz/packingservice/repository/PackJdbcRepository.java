@@ -56,6 +56,12 @@ public class PackJdbcRepository implements PackRepository {
     }
 
     @Override
+    public List<Pack> findByPackingListId(long packingListId) {
+        return jdbcTemplate.query("SELECT * FROM pack WHERE packing_list_id = :packingListId",
+                Collections.singletonMap("packingListId", packingListId), packRowMapper);
+    }
+
+    @Override
     public List<Pack> findByCategory(Category category) {
         return jdbcTemplate.query("SELECT * FROM pack WHERE category = :category",
                 Collections.singletonMap("category", category.toString()),

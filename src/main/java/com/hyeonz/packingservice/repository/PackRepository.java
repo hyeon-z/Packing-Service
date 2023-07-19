@@ -15,6 +15,8 @@ public interface PackRepository {
 
     Optional<Pack> findById(long id);
 
+    List<Pack> findByPackingListId(long packingListId);
+
     List<Pack> findByCategory(Category category);
 
     void deleteById(long id);

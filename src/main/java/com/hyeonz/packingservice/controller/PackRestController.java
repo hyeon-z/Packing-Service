@@ -38,11 +38,12 @@ public class PackRestController {
         ));
     }
 
-    @GetMapping({"{category}"})
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Pack> findByCategory(@PathVariable Category category) {
-        return packService.getPacksByCategory(category);
+    public List<Pack> findPackByPackingListId(@RequestParam Long packingListId) {
+        return packService.getPacksByPackingListId(packingListId);
     }
+
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.OK)

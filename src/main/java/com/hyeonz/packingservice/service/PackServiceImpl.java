@@ -1,10 +1,10 @@
 package com.hyeonz.packingservice.service;
 
-import com.hyeonz.packingservice.model.Category;
 import com.hyeonz.packingservice.model.Pack;
 import com.hyeonz.packingservice.repository.PackRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -26,8 +26,12 @@ public class PackServiceImpl implements PackService {
     }
 
     @Override
-    public List<Pack> getPacksByCategory(Category category) {
-        return packRepository.findByCategory(category);
+    public List<Pack> getPacksByPackingListId(Long packingListId) {
+        List<Pack> packs = packRepository.findByPackingListId(packingListId);
+
+        packs.sort(Comparator.comparing(Pack::getCategory).thenComparing(Pack::getId));
+
+        return packs;
     }
 
     @Override
