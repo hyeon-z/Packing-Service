@@ -37,7 +37,7 @@ class PackJdbcRepositoryTest {
     @Autowired
     PackRepository packRepository;
 
-    private final PackingList packingList = new PackingList("대만여행", "친구들과 간다.", LocalDate.now());
+    private final PackingList packingList = new PackingList(1L, "대만여행", "친구들과 간다.", LocalDate.now());
     private final Pack pack = new Pack(1L, 1L, "상의", Category.CLOTHES);
     private final Pack newPack = new Pack(2L, 1L, "하의", Category.CLOTHES);
 
@@ -123,5 +123,17 @@ class PackJdbcRepositoryTest {
 
         assertThat(beforeLists.isEmpty(), is(false));
         assertThat(afterLists.isEmpty(), is(true));
+    }
+
+    @Test
+    @Order(7)
+    @DisplayName("패킹리스트 id로 짐을 조회할 수 있다.")
+    void findPackByPackingListId() {
+        Pack insertPack = packRepository.insert(pack);
+
+        List<Pack> findPack = packRepository.findByPackingListId(packingList.getId());
+
+        assertThat(findPack.size(), is(1));
+        assertThat(findPack.get(0), samePropertyValuesAs(insertPack));
     }
 }
