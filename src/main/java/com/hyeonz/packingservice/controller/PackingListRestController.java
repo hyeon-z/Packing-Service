@@ -47,11 +47,14 @@ public class PackingListRestController {
         return ResponseEntity.ok(packingList.get());
     }
 
-    @PatchMapping
+    @PutMapping("/{id}")
     @ResponseStatus(value = HttpStatus.OK)
-    public PackingList updatePackingList(@RequestBody PackingListUpdateDto packingListUpdateDto) {
+    public PackingList updatePackingList(@PathVariable Long id, @RequestBody PackingListUpdateDto packingListUpdateDto) {
         return packingListService.updatePackingList(new PackingList(
                 packingListUpdateDto.getId(),
+        return packingListService.updatePackingList(
+                new PackingList(
+                        id,
                 packingListUpdateDto.getTitle(),
                 packingListUpdateDto.getDescription(),
                 packingListUpdateDto.getDepartureDate()
