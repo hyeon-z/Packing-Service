@@ -38,8 +38,8 @@ class PackJdbcRepositoryTest {
     PackRepository packRepository;
 
     private final PackingList packingList = new PackingList(1L, "대만여행", "친구들과 간다.", LocalDate.now());
-    private final Pack pack = new Pack(1L, 1L, "상의", Category.CLOTHES);
-    private final Pack newPack = new Pack(2L, 1L, "하의", Category.CLOTHES);
+    private final Pack pack = new Pack(1L, 1L, "상의", Category.의류);
+    private final Pack newPack = new Pack(2L, 1L, "하의", Category.의류);
 
     @BeforeEach
     void dataInitialize() {
@@ -88,8 +88,8 @@ class PackJdbcRepositoryTest {
         packRepository.insert(pack);
         packRepository.insert(newPack);
 
-        List<Pack> foodPacks = packRepository.findByCategory(Category.FOOD);
-        List<Pack> clothesPacks = packRepository.findByCategory(Category.CLOTHES);
+        List<Pack> foodPacks = packRepository.findByCategory(Category.음식);
+        List<Pack> clothesPacks = packRepository.findByCategory(Category.의류);
 
         assertThat(foodPacks.isEmpty(), is(true));
         assertThat(clothesPacks.size(), is(2));
