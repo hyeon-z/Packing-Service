@@ -6,7 +6,6 @@ public class PackUpdateDto {
     private Long id;
     private String name;
     private Category category;
-    private boolean checked;
 
 
     public Long getId() {
@@ -19,9 +18,5 @@ public class PackUpdateDto {
 
     public Category getCategory() {
         return category;
-    }
-
-    public boolean isChecked() {
-        return checked;
     }
 }

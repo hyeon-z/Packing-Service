@@ -33,7 +33,6 @@ public class PackRestController {
                 packUpdateDto.getId(),
                 packUpdateDto.getName(),
                 packUpdateDto.getCategory(),
-                packUpdateDto.isChecked()
         ));
     }
 

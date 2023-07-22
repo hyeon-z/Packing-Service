@@ -38,7 +38,7 @@ public class PackJdbcRepository implements PackRepository {
     @Override
     @Transactional
     public Pack update(Pack pack) {
-        int update = jdbcTemplate.update("UPDATE pack SET name = :name, category = :category, checked = :checked, updated_at = CURRENT_TIMESTAMP WHERE id = :id",
+        int update = jdbcTemplate.update("UPDATE pack SET name = :name, category = :category, updated_at = CURRENT_TIMESTAMP WHERE id = :id",
                 toUpdateParamMap(pack)
         );
 
@@ -119,7 +119,6 @@ public class PackJdbcRepository implements PackRepository {
 
         paramMap.put("name", pack.getName());
         paramMap.put("category", pack.getCategory().toString());
-        paramMap.put("checked", pack.isChecked());
         paramMap.put("id", pack.getId());
 
         return paramMap;
