@@ -69,7 +69,7 @@ public class Pack {
         return updatedAt;
     }
 
-    public void setChecked(boolean checked) {
-        this.checked = checked;
+    public void setName(String name) {
+        this.name = name;
     }
 }

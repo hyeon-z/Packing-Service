@@ -100,12 +100,12 @@ class PackJdbcRepositoryTest {
     @DisplayName("짐을 수정할 수 있다.")
     void updatePack() {
         Pack insertPack = packRepository.insert(pack);
-        insertPack.setChecked(true);
+        insertPack.setName("바지");
 
         Pack updatePack = packRepository.update(insertPack);
 
         assertThat(updatePack.getId(), is(insertPack.getId()));
-        assertThat(updatePack.isChecked(), is(insertPack.isChecked()));
+        assertThat(updatePack.getName(), is(insertPack.getName()));
         assertThat(updatePack.getUpdatedAt(), not(equalTo(insertPack.getUpdatedAt())));
     }
 
