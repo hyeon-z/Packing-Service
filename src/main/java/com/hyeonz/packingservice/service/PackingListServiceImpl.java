@@ -4,6 +4,7 @@ import com.hyeonz.packingservice.model.PackingList;
 import com.hyeonz.packingservice.repository.PackingListRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +23,11 @@ public class PackingListServiceImpl implements PackingListService {
 
     @Override
     public List<PackingList> getAllPackingLists() {
-        return packingListRepository.findAll();
+        List<PackingList> packingLists = packingListRepository.findAll();
+
+        packingLists.sort(Comparator.comparing(PackingList::getDepartureDate).thenComparing(PackingList::getId));
+
+        return packingLists;
     }
 
     @Override
