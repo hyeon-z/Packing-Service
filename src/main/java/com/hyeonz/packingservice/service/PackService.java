@@ -10,6 +10,8 @@ public interface PackService {
 
     Pack updatePack(Pack pack);
 
+    Pack updateChecked(Long id, boolean checked);
+
     List<Pack> getPacksByPackingListId(Long packingListId);
 
     void deletePack(long id);

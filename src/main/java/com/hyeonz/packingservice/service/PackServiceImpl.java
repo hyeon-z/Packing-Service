@@ -26,6 +26,11 @@ public class PackServiceImpl implements PackService {
     }
 
     @Override
+    public Pack updateChecked(Long id, boolean checked) {
+        return packRepository.updateChecked(id, checked);
+    }
+
+    @Override
     public List<Pack> getPacksByPackingListId(Long packingListId) {
         List<Pack> packs = packRepository.findByPackingListId(packingListId);
 
