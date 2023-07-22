@@ -26,13 +26,13 @@ public class PackRestController {
         ));
     }
 
-    @PatchMapping
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Pack update(@RequestBody PackUpdateDto packUpdateDto) {
+    public Pack update(@PathVariable Long id, @RequestBody PackUpdateDto packUpdateDto) {
         return packService.updatePack(new Pack(
-                packUpdateDto.getId(),
+                id,
                 packUpdateDto.getName(),
-                packUpdateDto.getCategory(),
+                packUpdateDto.getCategory()
         ));
     }
 
