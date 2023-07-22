@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public class Pack {
     private Long packingListId;
     private Long id;
-    private final String name;
+    private String name;
     private final Category category;
     private boolean checked;
     private LocalDateTime createdAt = LocalDateTime.now();
@@ -17,11 +17,10 @@ public class Pack {
         this.category = category;
     }
 
-    public Pack(Long id, String name, Category category, boolean checked) {
-        this.id = id;
+    public Pack(String name, Category category, Long packingListId) {
         this.name = name;
         this.category = category;
-        this.checked = checked;
+        this.packingListId = packingListId;
     }
 
     public Pack(Long id, Long packingListId, String name, Category category) {

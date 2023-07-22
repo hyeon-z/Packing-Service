@@ -20,9 +20,9 @@ public class PackRestController {
     @ResponseStatus(HttpStatus.CREATED)
     public Pack createPack(@RequestBody PackCreateDto packCreateDto) {
         return packService.createPack(new Pack(
-                packCreateDto.getPackingListId(),
                 packCreateDto.getName(),
-                packCreateDto.getCategory()
+                packCreateDto.getCategory(),
+                packCreateDto.getPackingListId()
         ));
     }
 
