@@ -11,8 +11,8 @@ public class Pack {
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt = LocalDateTime.now();
 
-    public Pack(Long packingListId, String name, Category category) {
-        this.packingListId = packingListId;
+    public Pack(Long id, String name, Category category) {
+        this.id = id;
         this.name = name;
         this.category = category;
     }
