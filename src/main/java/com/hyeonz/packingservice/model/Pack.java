@@ -8,6 +8,7 @@ public class Pack {
     private String name;
     private final Category category;
     private boolean checked;
+
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt = LocalDateTime.now();
 
@@ -70,5 +71,9 @@ public class Pack {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
     }
 }

@@ -136,4 +136,18 @@ class PackJdbcRepositoryTest {
         assertThat(findPack.size(), is(1));
         assertThat(findPack.get(0), samePropertyValuesAs(insertPack));
     }
+
+    @Test
+    @Order(8)
+    @DisplayName("짐의 컬럼 checked를 수정할 수 있다.")
+    void updatePackChecked() {
+        Pack insertPack = packRepository.insert(pack);
+        insertPack.setChecked(true);
+
+        Pack updatePack = packRepository.updateChecked(insertPack.getId(), insertPack.isChecked());
+
+        assertThat(updatePack.getId(), is(insertPack.getId()));
+        assertThat(updatePack.isChecked(), is(insertPack.isChecked()));
+        assertThat(updatePack.getUpdatedAt(), not(equalTo(insertPack.getUpdatedAt())));
+    }
 }
