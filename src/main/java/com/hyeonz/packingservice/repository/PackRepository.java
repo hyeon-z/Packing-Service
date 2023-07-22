@@ -13,6 +13,8 @@ public interface PackRepository {
 
     Pack update(Pack pack);
 
+    Pack updateChecked(Long id, boolean checked);
+
     Optional<Pack> findById(long id);
 
     List<Pack> findByPackingListId(long packingListId);

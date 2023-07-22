@@ -51,6 +51,22 @@ public class PackJdbcRepository implements PackRepository {
     }
 
     @Override
+    @Transactional
+    public Pack updateChecked(Long id, boolean checked) {
+        int update = jdbcTemplate.update(
+                "UPDATE pack SET checked = :checked, updated_at = CURRENT_TIMESTAMP WHERE id = :id",
+                toUpdateCheckedParamMap(id, checked)
+        );
+
+        if (update != 1) {
+            logger.error("Pack의 checked 컬럼의 update가 제대로 되지 않았습니다.");
+            throw new RuntimeException("Pack의 checked 컬럼의 update가 제대로 되지 않았습니다.");
+        }
+
+        return findById(id).orElseThrow(() -> new RuntimeException("Pack을 찾을 수 없습니다."));
+    }
+
+    @Override
     public Optional<Pack> findById(long id) {
         return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT * FROM pack WHERE id = :id",
                 Collections.singletonMap("id", id), packRowMapper));
@@ -120,6 +136,15 @@ public class PackJdbcRepository implements PackRepository {
         paramMap.put("name", pack.getName());
         paramMap.put("category", pack.getCategory().toString());
         paramMap.put("id", pack.getId());
+
+        return paramMap;
+    }
+
+    private Map<String, Object> toUpdateCheckedParamMap(Long id, boolean checked) {
+        HashMap<String, Object> paramMap = new HashMap<>();
+
+        paramMap.put("id", id);
+        paramMap.put("checked", checked);
 
         return paramMap;
     }
