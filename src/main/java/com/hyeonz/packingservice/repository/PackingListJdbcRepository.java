@@ -19,14 +19,15 @@ public class PackingListJdbcRepository implements PackingListRepository {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final NamedParameterJdbcTemplate jdbcTemplate;
-    private final RowMapper<PackingList> packingListRowMapper = (rs, rowNum) -> new PackingList(
-            rs.getLong("id"),
-            rs.getString("title"),
-            rs.getString("description"),
-            rs.getDate("departure_date").toLocalDate(),
-            rs.getTimestamp("created_at").toLocalDateTime(),
-            rs.getTimestamp("updated_at").toLocalDateTime()
-    );
+    private final RowMapper<PackingList> packingListRowMapper = (rs, rowNum) ->
+            new PackingList(
+                    rs.getLong("id"),
+                    rs.getString("title"),
+                    rs.getString("description"),
+                    rs.getDate("departure_date").toLocalDate(),
+                    rs.getTimestamp("created_at").toLocalDateTime(),
+                    rs.getTimestamp("updated_at").toLocalDateTime()
+            );
 
 
     public PackingListJdbcRepository(NamedParameterJdbcTemplate jdbcTemplate) {
@@ -83,7 +84,8 @@ public class PackingListJdbcRepository implements PackingListRepository {
 
             long id = jdbcInsert.executeAndReturnKey(params).longValue();
 
-            return new PackingList(id,
+            return new PackingList(
+                    id,
                     packingList.getTitle(),
                     packingList.getDescription(),
                     packingList.getDepartureDate(),

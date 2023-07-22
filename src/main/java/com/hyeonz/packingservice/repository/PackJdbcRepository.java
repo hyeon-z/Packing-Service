@@ -20,15 +20,16 @@ public class PackJdbcRepository implements PackRepository {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
-    private final RowMapper<Pack> packRowMapper = (rs, rowNum) -> new Pack(
-            rs.getLong("id"),
-            rs.getLong("packing_list_id"),
-            rs.getString("name"),
-            Category.valueOf(rs.getString("category")),
-            rs.getBoolean("checked"),
-            rs.getTimestamp("created_at").toLocalDateTime(),
-            rs.getTimestamp("updated_at").toLocalDateTime()
-    );
+    private final RowMapper<Pack> packRowMapper = (rs, rowNum) ->
+            new Pack(
+                    rs.getLong("id"),
+                    rs.getLong("packing_list_id"),
+                    rs.getString("name"),
+                    Category.valueOf(rs.getString("category")),
+                    rs.getBoolean("checked"),
+                    rs.getTimestamp("created_at").toLocalDateTime(),
+                    rs.getTimestamp("updated_at").toLocalDateTime()
+            );
 
     public PackJdbcRepository(NamedParameterJdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
