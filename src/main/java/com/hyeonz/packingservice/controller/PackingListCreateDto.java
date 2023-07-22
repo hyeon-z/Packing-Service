@@ -1,11 +1,9 @@
 package com.hyeonz.packingservice.controller;
 
-import java.time.LocalDate;
-
 public class PackingListCreateDto {
     private String title;
     private String description;
-    private LocalDate departureDate;
+    private String departureDate;
 
 
     public String getTitle() {
@@ -16,7 +14,7 @@ public class PackingListCreateDto {
         return description;
     }
 
-    public LocalDate getDepartureDate() {
+    public String getDepartureDate() {
         return departureDate;
     }
 }

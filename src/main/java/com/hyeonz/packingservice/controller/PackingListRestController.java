@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,11 +23,13 @@ public class PackingListRestController {
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
     public PackingList createPackingList(@RequestBody PackingListCreateDto packingListCreateDto) {
+        LocalDate departureDate = LocalDate.parse(packingListCreateDto.getDepartureDate(), DateTimeFormatter.ISO_DATE);
+
         return packingListService.createPackingList(
                 new PackingList(
                         packingListCreateDto.getTitle(),
                         packingListCreateDto.getDescription(),
-                        packingListCreateDto.getDepartureDate()
+                        departureDate
                 )
         );
     }
@@ -50,15 +54,15 @@ public class PackingListRestController {
     @PutMapping("/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public PackingList updatePackingList(@PathVariable Long id, @RequestBody PackingListUpdateDto packingListUpdateDto) {
-        return packingListService.updatePackingList(new PackingList(
-                packingListUpdateDto.getId(),
+        LocalDate departureDate = LocalDate.parse(packingListUpdateDto.getDepartureDate(), DateTimeFormatter.ISO_DATE);
+
         return packingListService.updatePackingList(
                 new PackingList(
                         id,
-                packingListUpdateDto.getTitle(),
-                packingListUpdateDto.getDescription(),
-                packingListUpdateDto.getDepartureDate()
-        ));
+                        packingListUpdateDto.getTitle(),
+                        packingListUpdateDto.getDescription(),
+                        departureDate
+                ));
     }
 
     @DeleteMapping("/{id}")

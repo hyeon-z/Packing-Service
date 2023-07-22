@@ -1,17 +1,9 @@
 package com.hyeonz.packingservice.controller;
 
-import java.time.LocalDate;
-
 public class PackingListUpdateDto {
-    private Long id;
     private String title;
     private String description;
-    private LocalDate departureDate;
-
-
-    public Long getId() {
-        return id;
-    }
+    private String departureDate;
 
     public String getTitle() {
         return title;
@@ -21,7 +13,7 @@ public class PackingListUpdateDto {
         return description;
     }
 
-    public LocalDate getDepartureDate() {
+    public String getDepartureDate() {
         return departureDate;
     }
 
