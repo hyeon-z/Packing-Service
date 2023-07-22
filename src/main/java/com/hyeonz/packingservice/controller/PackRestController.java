@@ -43,7 +43,7 @@ public class PackRestController {
     }
 
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteById(@PathVariable long id) {
         packService.deletePack(id);
