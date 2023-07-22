@@ -36,6 +36,12 @@ public class PackRestController {
         ));
     }
 
+    @PatchMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Pack updateChecked(@PathVariable Long id, @RequestParam boolean checked) {
+        return packService.updateChecked(id, checked);
+    }
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Pack> findPackByPackingListId(@RequestParam Long packingListId) {
