@@ -11,7 +11,7 @@ CREATE TABLE packing_list
 CREATE TABLE pack
 (
     id              BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    packing_list_id BIGINT,
+    packing_list_id BIGINT             NOT NULL,
     name            VARCHAR(12)        NOT NULL,
     category        VARCHAR(12)        NOT NULL,
     checked         BOOLEAN            NOT NULL DEFAULT FALSE,
