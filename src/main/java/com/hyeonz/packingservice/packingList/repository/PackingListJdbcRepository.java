@@ -43,8 +43,9 @@ public class PackingListJdbcRepository implements PackingListRepository {
     @Override
     @Transactional
     public PackingList update(PackingList packingList) {
-        var update = jdbcTemplate.update("UPDATE packing_list SET title = :title, description = :description, departure_date = :departureDate, updated_at = CURRENT_TIMESTAMP"
+        int update = jdbcTemplate.update("UPDATE packing_list SET title = :title, description = :description, departure_date = :departureDate, updated_at = CURRENT_TIMESTAMP"
                 + " WHERE id = :id", toParamMap(packingList));
+
         if (update != 1) {
             logger.error("PackingList의 update가 제대로 되지 않았습니다.");
             throw new RuntimeException("PackingList의 update가 제대로 되지 않았습니다.");
@@ -77,7 +78,9 @@ public class PackingListJdbcRepository implements PackingListRepository {
     @Override
     @Transactional
     public PackingList insert(PackingList packingList) {
-        SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate.getJdbcTemplate()).withTableName("packing_list").usingGeneratedKeyColumns("id");
+        SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate.getJdbcTemplate())
+                .withTableName("packing_list")
+                .usingGeneratedKeyColumns("id");
 
         try {
             SqlParameterSource params = new BeanPropertySqlParameterSource(packingList);
