@@ -1,7 +1,7 @@
-package com.hyeonz.packingservice.repository;
+package com.hyeonz.packingservice.pack.repository;
 
-import com.hyeonz.packingservice.model.Category;
-import com.hyeonz.packingservice.model.Pack;
+import com.hyeonz.packingservice.pack.domain.Category;
+import com.hyeonz.packingservice.pack.domain.Pack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DuplicateKeyException;

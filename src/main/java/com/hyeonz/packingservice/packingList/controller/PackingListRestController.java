@@ -1,7 +1,9 @@
-package com.hyeonz.packingservice.controller;
+package com.hyeonz.packingservice.packingList.controller;
 
-import com.hyeonz.packingservice.model.PackingList;
-import com.hyeonz.packingservice.service.PackingListService;
+import com.hyeonz.packingservice.packingList.dto.PackingListCreateDto;
+import com.hyeonz.packingservice.packingList.dto.PackingListUpdateDto;
+import com.hyeonz.packingservice.packingList.domain.PackingList;
+import com.hyeonz.packingservice.packingList.service.PackingListService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

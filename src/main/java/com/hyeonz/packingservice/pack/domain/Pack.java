@@ -1,4 +1,4 @@
-package com.hyeonz.packingservice.model;
+package com.hyeonz.packingservice.pack.domain;
 
 import java.time.LocalDateTime;
 

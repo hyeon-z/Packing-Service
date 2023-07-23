@@ -1,4 +1,4 @@
-package com.hyeonz.packingservice.controller;
+package com.hyeonz.packingservice.packingList.dto;
 
 public class PackingListUpdateDto {
     private String title;

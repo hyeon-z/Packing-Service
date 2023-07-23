@@ -1,6 +1,7 @@
 package com.hyeonz.packingservice.repository;
 
-import com.hyeonz.packingservice.model.PackingList;
+import com.hyeonz.packingservice.packingList.domain.PackingList;
+import com.hyeonz.packingservice.packingList.repository.PackingListRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

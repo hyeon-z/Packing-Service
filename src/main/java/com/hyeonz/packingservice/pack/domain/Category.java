@@ -1,4 +1,4 @@
-package com.hyeonz.packingservice.model;
+package com.hyeonz.packingservice.pack.domain;
 
 public enum Category {
     의류,

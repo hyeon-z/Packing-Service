@@ -1,7 +1,7 @@
-package com.hyeonz.packingservice.service;
+package com.hyeonz.packingservice.packingList.service;
 
-import com.hyeonz.packingservice.model.PackingList;
-import com.hyeonz.packingservice.repository.PackingListRepository;
+import com.hyeonz.packingservice.packingList.domain.PackingList;
+import com.hyeonz.packingservice.packingList.repository.PackingListRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;

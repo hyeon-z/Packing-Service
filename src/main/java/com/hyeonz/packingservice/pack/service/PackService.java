@@ -1,6 +1,6 @@
-package com.hyeonz.packingservice.service;
+package com.hyeonz.packingservice.pack.service;
 
-import com.hyeonz.packingservice.model.Pack;
+import com.hyeonz.packingservice.pack.domain.Pack;
 
 import java.util.List;
 

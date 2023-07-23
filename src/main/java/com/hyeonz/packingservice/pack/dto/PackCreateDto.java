@@ -1,6 +1,6 @@
-package com.hyeonz.packingservice.controller;
+package com.hyeonz.packingservice.pack.dto;
 
-import com.hyeonz.packingservice.model.Category;
+import com.hyeonz.packingservice.pack.domain.Category;
 
 public class PackCreateDto {
     private Long packingListId;
