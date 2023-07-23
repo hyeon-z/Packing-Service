@@ -112,7 +112,7 @@ public class PackJdbcRepository implements PackRepository {
         try {
             SqlParameterSource params = new BeanPropertySqlParameterSource(pack);
 
-            long id = jdbcInsert.executeAndReturnKey(params).longValue();
+            Long id = jdbcInsert.executeAndReturnKey(params).longValue();
 
             return new Pack(
                     id,
